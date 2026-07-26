@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Guestbook Engine
+   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Real-Time Cloud Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -72,45 +72,60 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     2. Enchanted Visitor Guestbook & Comments Engine
+     2. Real-Time Cloud Guestbook & Worldwide Visitor Comments Engine
      -------------------------------------------------------------------------- */
-  const defaultComments = [
+  const CLOUD_API_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019f9fb2b65e2d4e';
+
+  let commentsState = [
     { id: 'c1', username: 'neon_wanderer', time: '26.07.2026 22:40', text: 'Loved the dark aesthetic of this blog! ✨' },
     { id: 'c2', username: 'cyber_dreamer', time: '25.07.2026 19:15', text: 'Super cool lo-fi cassette synth player.' }
   ];
 
-  let commentsState = [];
-  const storedComments = localStorage.getItem('lyra_enchanted_comments');
-  if (storedComments) {
-    try { commentsState = JSON.parse(storedComments); } catch(e) { commentsState = defaultComments; }
-  } else {
-    commentsState = defaultComments;
+  async function fetchCloudComments() {
+    try {
+      const res = await fetch(CLOUD_API_URL);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.data && Array.isArray(json.data)) {
+          commentsState = json.data;
+          localStorage.setItem('lyra_enchanted_comments', JSON.stringify(commentsState));
+        }
+      }
+    } catch (e) {
+      console.warn('Fallback to local storage comments:', e);
+      const stored = localStorage.getItem('lyra_enchanted_comments');
+      if (stored) {
+        try { commentsState = JSON.parse(stored); } catch(err) {}
+      }
+    }
   }
 
-  function saveComments() {
+  async function saveCloudComments() {
     localStorage.setItem('lyra_enchanted_comments', JSON.stringify(commentsState));
+    try {
+      await fetch(CLOUD_API_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'orion_comments',
+          data: commentsState
+        })
+      });
+    } catch (e) {
+      console.error('Cloud comment sync error:', e);
+    }
   }
 
-  function renderEnchantedView() {
+  // Pre-fetch cloud comments on init
+  fetchCloudComments();
+
+  async function renderEnchantedView() {
     const hudTitle = document.getElementById('hudTitle');
     const hudSub = document.getElementById('hudSub');
     const hudMsg = document.getElementById('hudMsg');
 
     hudTitle.textContent = '> ENCHANTED GUESTBOOK';
     hudSub.textContent = '> 魔法のメッセージ';
-
-    const commentsHTML = commentsState.map(c => `
-      <div class="comment-card" data-id="${c.id}">
-        <div class="comment-card-top">
-          <span class="comment-username">👤 @${c.username}</span>
-          <div class="comment-top-right">
-            <span class="comment-time">${c.time}</span>
-            ${isModerator ? `<button class="delete-comment-btn" title="Delete or Archive Comment" onclick="deleteComment('${c.id}')">🗑️</button>` : ''}
-          </div>
-        </div>
-        <div class="comment-body-text">${c.text}</div>
-      </div>
-    `).join('');
 
     hudMsg.innerHTML = `
       <div class="enchanted-box">
@@ -123,23 +138,31 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="form-row">
             <textarea id="commentText" class="enchanted-textarea" rows="2" placeholder="Write your message here..." required></textarea>
           </div>
-          <button type="submit" class="enchanted-submit-btn">✨ LEAVE ENCHANTED MESSAGE</button>
+          <button type="submit" class="enchanted-submit-btn" id="subCommentBtn">✨ LEAVE ENCHANTED MESSAGE</button>
         </form>
 
         <div class="comments-feed" id="commentsFeed">
-          ${commentsHTML}
+          <p class="description-line">⚡ Connecting to Cyber Cloud Database...</p>
         </div>
       </div>
     `;
 
+    // Fetch latest cloud comments live
+    await fetchCloudComments();
+    renderCommentsFeed();
+
     const commentForm = document.getElementById('commentForm');
     if (commentForm) {
-      commentForm.addEventListener('submit', (e) => {
+      commentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = document.getElementById('subCommentBtn');
         const user = document.getElementById('commentUsername').value.trim();
         const txt = document.getElementById('commentText').value.trim();
 
         if (!user || !txt) return;
+
+        btn.disabled = true;
+        btn.textContent = '⏳ SYNCING TO CLOUD...';
 
         const now = new Date();
         const day = String(now.getDate()).padStart(2, '0');
@@ -156,18 +179,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         commentsState.unshift(newC);
-        saveComments();
-        renderEnchantedView();
+        await saveCloudComments();
+        
+        document.getElementById('commentText').value = '';
+        renderCommentsFeed();
+        btn.disabled = false;
+        btn.textContent = '✨ LEAVE ENCHANTED MESSAGE';
       });
     }
   }
 
+  function renderCommentsFeed() {
+    const feed = document.getElementById('commentsFeed');
+    if (!feed) return;
+
+    if (commentsState.length === 0) {
+      feed.innerHTML = '<p class="description-line">No comments yet. Be the first to leave an enchanted note!</p>';
+      return;
+    }
+
+    feed.innerHTML = commentsState.map(c => `
+      <div class="comment-card" data-id="${c.id}">
+        <div class="comment-card-top">
+          <span class="comment-username">👤 @${c.username}</span>
+          <div class="comment-top-right">
+            <span class="comment-time">${c.time}</span>
+            ${isModerator ? `<button class="delete-comment-btn" title="Delete or Archive Comment" onclick="deleteComment('${c.id}')">🗑️</button>` : ''}
+          </div>
+        </div>
+        <div class="comment-body-text">${c.text}</div>
+      </div>
+    `).join('');
+  }
+
   // Global helper for comment deletion
-  window.deleteComment = function(id) {
+  window.deleteComment = async function(id) {
     if (confirm('Delete or archive this comment?')) {
       commentsState = commentsState.filter(c => c.id !== id);
-      saveComments();
-      renderEnchantedView();
+      await saveCloudComments();
+      renderCommentsFeed();
     }
   };
 
