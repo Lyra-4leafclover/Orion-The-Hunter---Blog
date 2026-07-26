@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Real-Time Cloud Engine
+   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Tech Newsletter Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -7,19 +7,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   let siteConfig = {};
   let pagesData = {};
   let entriesData = [];
+  let newslettersData = [];
   let activeTab = 'home';
 
   // Load configuration files from local content/ directory
   try {
-    const [resSite, resPages, resEntries] = await Promise.all([
+    const [resSite, resPages, resEntries, resNews] = await Promise.all([
       fetch('content/site.json'),
       fetch('content/pages.json'),
-      fetch('content/entries.json')
+      fetch('content/entries.json'),
+      fetch('content/newsletters.json')
     ]);
 
     siteConfig = await resSite.json();
     pagesData = await resPages.json();
     entriesData = await resEntries.json();
+    newslettersData = await resNews.json();
   } catch (err) {
     console.error('Error loading content JSON files:', err);
   }
@@ -147,7 +150,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
     `;
 
-    // Fetch latest cloud comments live
     await fetchCloudComments();
     renderCommentsFeed();
 
@@ -223,13 +225,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     3. Navigation Tabs Controller & Full Archive Timeline
+     3. Navigation Tabs Controller & Tech Newsletter Page Renderer
      -------------------------------------------------------------------------- */
   const navLinks = document.querySelectorAll('.nav-link');
   const hudTitle = document.getElementById('hudTitle');
   const hudSub = document.getElementById('hudSub');
   const hudMsg = document.getElementById('hudMsg');
   const viewAllEntriesBtn = document.getElementById('viewAllEntriesBtn');
+
+  function getNewsletterHTML() {
+    const newsListHTML = newslettersData.map(news => `
+      <div class="entry-row" onclick="openNewsletterModalById('${news.id}')">
+        <span class="entry-star">📡</span>
+        <span class="entry-date">[ ${news.date} ]</span>
+        <span class="entry-label"><strong style="color:var(--pink-neon)">[${news.category}]</strong> ${news.title}</span>
+        <button class="entry-btn">READ NEWS DISPATCH &gt;</button>
+      </div>
+    `).join('');
+
+    return `
+      <p class="greeting-line">Decrypted <span class="pink-glow">Tech News Dispatches</span> & World Innovations</p>
+      <p class="description-line">📡 Weekly updates on AI breakthroughs, quantum computing, and global cyber innovations compiled by <span class="purple-glow">Lyra</span>.</p>
+      <div class="archive-entries-container" style="margin-top:14px;">
+        <h4 class="archive-subhead">&gt; TECH NEWSLETTERS (${newslettersData.length})</h4>
+        <div class="entries-stack">
+          ${newsListHTML}
+        </div>
+      </div>
+    `;
+  }
 
   function getArchiveHTML() {
     const count2026 = entriesData.filter(e => e.year === 2026).length;
@@ -259,6 +283,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   function renderActiveTab() {
     if (activeTab === 'enchanted') {
       renderEnchantedView();
+      return;
+    }
+
+    if (activeTab === 'newsletter') {
+      hudTitle.textContent = '> TECH NEWSLETTER';
+      hudSub.textContent = '> 最新テックニュース';
+      hudMsg.innerHTML = getNewsletterHTML();
       return;
     }
 
@@ -298,14 +329,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   if (viewAllEntriesBtn) {
-    viewAllEntriesBtn.addEventListener('click', () => switchToTab('archive'));
+    viewAllEntriesBtn.addEventListener('click', () => switchToTab('newsletter'));
   }
 
   renderActiveTab();
 
 
   /* --------------------------------------------------------------------------
-     4. Blog Entries Renderer
+     4. Blog & Newsletter Reader Modal
      -------------------------------------------------------------------------- */
   const entriesList = document.getElementById('entriesList');
   const blogModal = document.getElementById('blogModal');
@@ -358,6 +389,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.openEntryModalById = function(id) {
     const found = entriesData.find(e => e.id === id);
     if (found) openEntryModal(found);
+  };
+
+  window.openNewsletterModalById = function(id) {
+    const found = newslettersData.find(n => n.id === id);
+    if (found) {
+      openEntryModal({
+        date: `${found.date} | ${found.category}`,
+        title: found.title,
+        blocks: found.blocks
+      });
+    }
   };
 
   function closeModal() {

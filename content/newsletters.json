@@ -1,0 +1,50 @@
+[
+  {
+    "id": "news-1",
+    "date": "27.07.2026",
+    "title": "quantum neural chips breakthrough",
+    "category": "AI & HARDWARE",
+    "summary": "Researchers announce room-temperature 1000-qubit optical neural processors.",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "A monumental leap in artificial intelligence computing hardware was unveiled today. Researchers have achieved room-temperature 1000-qubit optical neural processing."
+      },
+      {
+        "type": "image",
+        "src": "assets/glowing_flower_exact.png",
+        "alt": "Quantum Neural Processing Architecture"
+      },
+      {
+        "type": "text",
+        "content": "This technological shift enables ultra-low power real-time AI execution on personal local devices without cloud latency."
+      }
+    ]
+  },
+  {
+    "id": "news-2",
+    "date": "25.07.2026",
+    "title": "decentralized autonomous web protocols",
+    "category": "CYBERNETICS",
+    "summary": "Self-healing web architectures powered by autonomous agentic mesh networks.",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "Exploring the rapid rise of self-healing web protocols that dynamically patch infrastructure vulnerabilities across global mesh networks in real time."
+      }
+    ]
+  },
+  {
+    "id": "news-3",
+    "date": "22.07.2026",
+    "title": "next-gen spatial UI frameworks",
+    "category": "INTERFACE DESIGN",
+    "summary": "Holographic glass UI engines fusing retro Y2K aesthetics with spatial computing.",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "A deep dive into modern UI design trends merging dark fantasy, Y2K cyberpunk typography, and spatial WebGL engines."
+      }
+    ]
+  }
+]
