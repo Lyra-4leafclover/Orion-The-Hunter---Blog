@@ -25,6 +25,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   /* --------------------------------------------------------------------------
+     0. Owner Moderation Mode (Disabled for Vercel Visitors by default)
+     -------------------------------------------------------------------------- */
+  const urlParams = new URLSearchParams(window.location.search);
+  let isModerator = localStorage.getItem('lyra_mod_mode') === 'true' || urlParams.has('mod');
+
+  function toggleModeratorMode() {
+    isModerator = !isModerator;
+    localStorage.setItem('lyra_mod_mode', isModerator ? 'true' : 'false');
+    if (activeTab === 'enchanted') {
+      renderEnchantedView();
+    }
+    alert(isModerator ? '🛠️ Owner Comment Moderation Mode Enabled.' : '🔒 Public Visitor Mode Active (Delete buttons hidden).');
+  }
+
+  // Secret Shortcut: Ctrl + Shift + M to toggle Owner Comment Delete Access
+  window.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'm') {
+      e.preventDefault();
+      toggleModeratorMode();
+    }
+  });
+
+  /* --------------------------------------------------------------------------
      1. Render Site Configuration
      -------------------------------------------------------------------------- */
   function renderSiteConfig() {
@@ -82,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <span class="comment-username">👤 @${c.username}</span>
           <div class="comment-top-right">
             <span class="comment-time">${c.time}</span>
-            <button class="delete-comment-btn" title="Delete or Archive Comment" onclick="deleteComment('${c.id}')">🗑️</button>
+            ${isModerator ? `<button class="delete-comment-btn" title="Delete or Archive Comment" onclick="deleteComment('${c.id}')">🗑️</button>` : ''}
           </div>
         </div>
         <div class="comment-body-text">${c.text}</div>
@@ -139,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Global helper for comment deletion
+  // Global helper for comment deletion (only active when moderator mode is on)
   window.deleteComment = function(id) {
     if (confirm('Delete or archive this comment?')) {
       commentsState = commentsState.filter(c => c.id !== id);
