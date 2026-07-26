@@ -766,6 +766,8 @@ html, body {
 /* Wireframe Flower */
 .wireframe-flower-art {
   position: relative;
+  width: 86%;
+  margin: 0 auto;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 25px rgba(192, 132, 252, 0.25);
