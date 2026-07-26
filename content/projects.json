@@ -1,0 +1,57 @@
+[
+  {
+    "id": "proj-1",
+    "date": "2026",
+    "title": "Project Orion_Log v2.07",
+    "status": "ONLINE",
+    "category": "CYBERPUNK CMS BLOG",
+    "summary": "A file-driven Y2K neon blog engine with real-time cloud guestbook, synthwave Web Audio, and frameless graphic collages.",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "Orion_Log is an aesthetic cyberpunk micro-journal built with pure HTML, CSS, and JS. Powered by local file content management and real-time cloud APIs."
+      },
+      {
+        "type": "image",
+        "src": "assets/disbelief_poster_exact.png",
+        "alt": "Orion Log Architecture Blueprint"
+      }
+    ],
+    "link": "https://github.com/Lyra-4leafclover/Orion-The-Hunter---Blog"
+  },
+  {
+    "id": "proj-2",
+    "date": "2026",
+    "title": "Synthwave Web Audio Engine",
+    "status": "ACTIVE",
+    "category": "AUDIO SYNTHESIZER",
+    "summary": "Custom Web Audio API lo-fi chord synthesizer featuring ambient sawtooth filters and tape reel animations.",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "An embedded browser synthesizer generating generative 2077 lo-fi chord progressions dynamically in real-time."
+      },
+      {
+        "type": "image",
+        "src": "assets/cassette_tape_exact.jpg",
+        "alt": "Synthwave Audio Engine Tape Reel"
+      }
+    ],
+    "link": "https://github.com/Lyra-4leafclover"
+  },
+  {
+    "id": "proj-3",
+    "date": "2025",
+    "title": "Neon Matrix Particle System",
+    "status": "COMPLETED",
+    "category": "CANVAS SHADER",
+    "summary": "Lightweight HTML5 canvas particle simulation rendering floating space dust and neon rain.",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "A high-performance particle engine rendering glowing atmospheric neon dust under violet skies."
+      }
+    ],
+    "link": "https://github.com/Lyra-4leafclover"
+  }
+]

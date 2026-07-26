@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Tech Newsletter Engine
+   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Projects Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -8,21 +8,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   let pagesData = {};
   let entriesData = [];
   let newslettersData = [];
+  let projectsData = [];
   let activeTab = 'home';
 
   // Load configuration files from local content/ directory
   try {
-    const [resSite, resPages, resEntries, resNews] = await Promise.all([
+    const [resSite, resPages, resEntries, resNews, resProj] = await Promise.all([
       fetch('content/site.json'),
       fetch('content/pages.json'),
       fetch('content/entries.json'),
-      fetch('content/newsletters.json')
+      fetch('content/newsletters.json'),
+      fetch('content/projects.json')
     ]);
 
     siteConfig = await resSite.json();
     pagesData = await resPages.json();
     entriesData = await resEntries.json();
     newslettersData = await resNews.json();
+    projectsData = await resProj.json();
   } catch (err) {
     console.error('Error loading content JSON files:', err);
   }
@@ -225,13 +228,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     3. Navigation Tabs Controller & Tech Newsletter Page Renderer
+     3. Navigation Tabs Controller & Projects Engine
      -------------------------------------------------------------------------- */
   const navLinks = document.querySelectorAll('.nav-link');
   const hudTitle = document.getElementById('hudTitle');
   const hudSub = document.getElementById('hudSub');
   const hudMsg = document.getElementById('hudMsg');
   const viewAllEntriesBtn = document.getElementById('viewAllEntriesBtn');
+
+  function getProjectsHTML() {
+    const projListHTML = projectsData.map(p => `
+      <div class="entry-row" onclick="openProjectModalById('${p.id}')">
+        <span class="entry-star">⚡</span>
+        <span class="entry-date">[ ${p.date} ]</span>
+        <span class="entry-label"><strong style="color:var(--purple-bright)">${p.title}</strong> <span class="pink-glow">[${p.status}]</span></span>
+        <button class="entry-btn">VIEW &gt;</button>
+      </div>
+    `).join('');
+
+    return `
+      <p class="greeting-line">Current Experiments & <span class="pink-glow">Neon Builds</span></p>
+      <div class="archive-entries-container" style="margin-top:14px;">
+        <h4 class="archive-subhead">&gt; CREATIVE LAB MATRIX (${projectsData.length} PROJECTS)</h4>
+        <div class="entries-stack">
+          ${projListHTML}
+        </div>
+      </div>
+    `;
+  }
 
   function getNewsletterHTML() {
     const newsListHTML = newslettersData.map(news => `
@@ -296,6 +320,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    if (activeTab === 'projects') {
+      hudTitle.textContent = '> CREATIVE LAB';
+      hudSub.textContent = '> プロジェクト';
+      hudMsg.innerHTML = getProjectsHTML();
+      return;
+    }
+
     if (activeTab === 'newsletter') {
       hudTitle.textContent = '> TECH NEWSLETTER';
       hudSub.textContent = '> 最新テックニュース';
@@ -346,7 +377,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     4. Blog & Newsletter Reader Modal
+     4. Blog, Newsletter & Projects Modal Reader
      -------------------------------------------------------------------------- */
   const entriesList = document.getElementById('entriesList');
   const blogModal = document.getElementById('blogModal');
@@ -392,6 +423,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       htmlHTML = entry.body;
     }
 
+    if (entry.link) {
+      htmlHTML += `<p style="margin-top:14px;"><a href="${entry.link}" target="_blank" class="link-url">🔗 VIEW LIVE PROJECT / REPO &gt;</a></p>`;
+    }
+
     modalContent.innerHTML = htmlHTML;
     blogModal.classList.add('active');
   }
@@ -408,6 +443,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         date: `${found.date} | ${found.category}`,
         title: found.title,
         blocks: found.blocks
+      });
+    }
+  };
+
+  window.openProjectModalById = function(id) {
+    const found = projectsData.find(p => p.id === id);
+    if (found) {
+      openEntryModal({
+        date: `${found.date} | ${found.category} [${found.status}]`,
+        title: found.title,
+        blocks: found.blocks,
+        link: found.link
       });
     }
   };
