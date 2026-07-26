@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     hudMsg.innerHTML = `
       <div class="enchanted-box">
-        <p class="greeting-line">Leave your mark in the <span class="pink-glow">Cyber Matrix</span>. Choose a username and drop an enchanted message for Lyra.</p>
+        <p class="greeting-line">Leave your mark in the <span class="pink-glow">Cyber Matrix</span>. Choose a username and drop an enchanted note for Lyra.</p>
         
         <form id="commentForm" class="enchanted-form">
           <div class="form-row">
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Global helper for comment deletion (only active when moderator mode is on)
+  // Global helper for comment deletion
   window.deleteComment = function(id) {
     if (confirm('Delete or archive this comment?')) {
       commentsState = commentsState.filter(c => c.id !== id);
@@ -173,21 +173,36 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     3. Navigation Tabs Controller
+     3. Navigation Tabs Controller & Full Archive Timeline
      -------------------------------------------------------------------------- */
   const navLinks = document.querySelectorAll('.nav-link');
   const hudTitle = document.getElementById('hudTitle');
   const hudSub = document.getElementById('hudSub');
   const hudMsg = document.getElementById('hudMsg');
+  const viewAllEntriesBtn = document.getElementById('viewAllEntriesBtn');
 
   function getArchiveHTML() {
     const count2026 = entriesData.filter(e => e.year === 2026).length;
     const count2025 = entriesData.filter(e => e.year === 2025).length;
+    
+    const allEntriesListHTML = entriesData.map(entry => `
+      <div class="entry-row" onclick="openEntryModalById('${entry.id}')">
+        <span class="entry-star">✦</span>
+        <span class="entry-date">[ ${entry.date} ]</span>
+        <span class="entry-label">${entry.title}</span>
+        <button class="entry-btn">READ &gt;</button>
+      </div>
+    `).join('');
+
     return `
-      <p class="greeting-line">Decrypted Logs from <span class="pink-glow">2024 - 2026</span></p>
-      <p class="description-line">📁 [2026] <span class="pink-glow">${count2026}</span> entries compiled</p>
-      <p class="description-line">📁 [2025] <span class="purple-glow">${count2025}</span> midnight notes archived</p>
-      <p class="mission-line">Browse full timeline in the <span class="purple-glow">Cyber Matrix</span>.</p>
+      <p class="greeting-line">Decrypted Logs & Full Archive Matrix</p>
+      <p class="description-line">📁 [2026] <span class="pink-glow">${count2026}</span> entries compiled &nbsp;|&nbsp; 📁 [2025] <span class="purple-glow">${count2025}</span> entries archived</p>
+      <div class="archive-entries-container">
+        <h4 class="archive-subhead">&gt; ALL BLOG ENTRIES (${entriesData.length})</h4>
+        <div class="entries-stack">
+          ${allEntriesListHTML}
+        </div>
+      </div>
     `;
   }
 
@@ -212,22 +227,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  function switchToTab(tabKey) {
+    navLinks.forEach(l => l.classList.remove('active'));
+    const targetLink = document.querySelector(`.nav-link[data-tab="${tabKey}"]`);
+    if (targetLink) targetLink.classList.add('active');
+
+    activeTab = tabKey;
+    hudTitle.style.opacity = '0';
+    hudMsg.style.opacity = '0';
+
+    setTimeout(() => {
+      renderActiveTab();
+      hudTitle.style.opacity = '1';
+      hudMsg.style.opacity = '1';
+    }, 150);
+  }
+
   navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-
-      activeTab = link.dataset.tab;
-      hudTitle.style.opacity = '0';
-      hudMsg.style.opacity = '0';
-
-      setTimeout(() => {
-        renderActiveTab();
-        hudTitle.style.opacity = '1';
-        hudMsg.style.opacity = '1';
-      }, 150);
-    });
+    link.addEventListener('click', () => switchToTab(link.dataset.tab));
   });
+
+  if (viewAllEntriesBtn) {
+    viewAllEntriesBtn.addEventListener('click', () => switchToTab('archive'));
+  }
 
   renderActiveTab();
 
@@ -247,7 +269,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!entriesList) return;
     entriesList.innerHTML = '';
 
-    entriesData.slice(0, 6).forEach(entry => {
+    entriesData.slice(0, 3).forEach(entry => {
       const row = document.createElement('div');
       row.className = 'entry-row';
       row.innerHTML = `
@@ -282,6 +304,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     modalContent.innerHTML = htmlHTML;
     blogModal.classList.add('active');
   }
+
+  window.openEntryModalById = function(id) {
+    const found = entriesData.find(e => e.id === id);
+    if (found) openEntryModal(found);
+  };
 
   function closeModal() {
     blogModal.classList.remove('active');

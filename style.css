@@ -634,6 +634,42 @@ html, body {
   justify-content: space-between;
 }
 
+.view-all-btn {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid var(--purple-bright);
+  color: var(--purple-bright);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.2);
+}
+
+.view-all-btn:hover {
+  background: var(--purple-bright);
+  color: #000;
+  box-shadow: 0 0 16px var(--purple-bright);
+}
+
+.archive-entries-container {
+  margin-top: 14px;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.archive-subhead {
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  color: var(--pink-neon);
+  margin-bottom: 6px;
+}
+
 .entries-header-title {
   font-size: 0.9rem;
   letter-spacing: 2px;
