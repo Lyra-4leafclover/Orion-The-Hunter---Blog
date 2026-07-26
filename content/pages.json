@@ -27,13 +27,12 @@
       "Building experiences where <span class=\"purple-glow\">code meets art</span>."
     ]
   },
-  "about": {
-    "title": "> ABOUT LYRA",
-    "sub": "> 私について",
+  "newsletter": {
+    "title": "> TECH NEWSLETTER",
+    "sub": "> 最新テックニュース",
     "paragraphs": [
-      "Digital Nomad & <span class=\"pink-glow\">Reading Enthusiast</span>",
-      "20-year-old CS Student crafting code, aesthetics, and lo-fi beats.",
-      "Passionate about UI engineering, dark fantasy visuals, and cyberpunk typography."
+      "Decrypted <span class=\"pink-glow\">Tech Dispatch</span> & World Discoveries.",
+      "Weekly updates on AI breakthroughs, quantum computing, and global cyber innovations compiled by <span class=\"purple-glow\">Lyra</span>."
     ]
   },
   "links": {
