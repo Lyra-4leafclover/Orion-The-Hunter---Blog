@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       commentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('subCommentBtn');
-        const user = document.getElementById('commentUsername').value.trim();
-        const txt = document.getElementById('commentText').value.trim();
+        const userVal = document.getElementById('commentUsername').value.trim();
+        const textVal = document.getElementById('commentText').value.trim();
 
-        if (!user || !txt) return;
+        if (!userVal || !textVal) return;
 
         btn.disabled = true;
         btn.textContent = '⏳ SYNCING TO CLOUD...';
@@ -172,14 +172,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const hrs = String(now.getHours()).padStart(2, '0');
         const mins = String(now.getMinutes()).padStart(2, '0');
 
-        const newC = {
+        const newComment = {
           id: 'c-' + Date.now(),
-          username: user.replace(/[^a-zA-Z0-9_]/g, '_'),
+          username: userVal,
           time: `${day}.${month}.${year} ${hrs}:${mins}`,
-          text: txt
+          text: textVal
         };
 
-        commentsState.unshift(newC);
+        await fetchCloudComments();
+        commentsState.unshift(newComment);
         await saveCloudComments();
         
         document.getElementById('commentText').value = '';
