@@ -45,5 +45,12 @@
       "✦ Twitter/X: @neon_lyra",
       "✦ Soundcloud: <span class=\"purple-glow\">midnight_mind</span>"
     ]
+  },
+  "enchanted": {
+    "title": "> ENCHANTED GUESTBOOK",
+    "sub": "> 魔法のメッセージ",
+    "paragraphs": [
+      "Leave your mark in the <span class=\"pink-glow\">Cyber Matrix</span>. Choose a username and drop an enchanted note for Lyra."
+    ]
   }
 }

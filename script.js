@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend Engine
+   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Guestbook Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -49,7 +49,108 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     2. Navigation Tabs & Active Page Renderer
+     2. Enchanted Visitor Guestbook & Comments Engine
+     -------------------------------------------------------------------------- */
+  const defaultComments = [
+    { id: 'c1', username: 'neon_wanderer', time: '26.07.2026 22:40', text: 'Loved the dark aesthetic of this blog! ✨' },
+    { id: 'c2', username: 'cyber_dreamer', time: '25.07.2026 19:15', text: 'Super cool lo-fi cassette synth player.' }
+  ];
+
+  let commentsState = [];
+  const storedComments = localStorage.getItem('lyra_enchanted_comments');
+  if (storedComments) {
+    try { commentsState = JSON.parse(storedComments); } catch(e) { commentsState = defaultComments; }
+  } else {
+    commentsState = defaultComments;
+  }
+
+  function saveComments() {
+    localStorage.setItem('lyra_enchanted_comments', JSON.stringify(commentsState));
+  }
+
+  function renderEnchantedView() {
+    const hudTitle = document.getElementById('hudTitle');
+    const hudSub = document.getElementById('hudSub');
+    const hudMsg = document.getElementById('hudMsg');
+
+    hudTitle.textContent = '> ENCHANTED GUESTBOOK';
+    hudSub.textContent = '> 魔法のメッセージ';
+
+    const commentsHTML = commentsState.map(c => `
+      <div class="comment-card" data-id="${c.id}">
+        <div class="comment-card-top">
+          <span class="comment-username">👤 @${c.username}</span>
+          <div class="comment-top-right">
+            <span class="comment-time">${c.time}</span>
+            <button class="delete-comment-btn" title="Delete or Archive Comment" onclick="deleteComment('${c.id}')">🗑️</button>
+          </div>
+        </div>
+        <div class="comment-body-text">${c.text}</div>
+      </div>
+    `).join('');
+
+    hudMsg.innerHTML = `
+      <div class="enchanted-box">
+        <p class="greeting-line">Leave your mark in the <span class="pink-glow">Cyber Matrix</span>. Choose a username and drop an enchanted message for Lyra.</p>
+        
+        <form id="commentForm" class="enchanted-form">
+          <div class="form-row">
+            <input type="text" id="commentUsername" class="enchanted-input" placeholder="Enter username (e.g. cyber_visitor)" required>
+          </div>
+          <div class="form-row">
+            <textarea id="commentText" class="enchanted-textarea" rows="2" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="enchanted-submit-btn">✨ LEAVE ENCHANTED MESSAGE</button>
+        </form>
+
+        <div class="comments-feed" id="commentsFeed">
+          ${commentsHTML}
+        </div>
+      </div>
+    `;
+
+    const commentForm = document.getElementById('commentForm');
+    if (commentForm) {
+      commentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const user = document.getElementById('commentUsername').value.trim();
+        const txt = document.getElementById('commentText').value.trim();
+
+        if (!user || !txt) return;
+
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+
+        const newC = {
+          id: 'c-' + Date.now(),
+          username: user.replace(/[^a-zA-Z0-9_]/g, '_'),
+          time: `${day}.${month}.${year} ${hrs}:${mins}`,
+          text: txt
+        };
+
+        commentsState.unshift(newC);
+        saveComments();
+        renderEnchantedView();
+      });
+    }
+  }
+
+  // Global helper for comment deletion
+  window.deleteComment = function(id) {
+    if (confirm('Delete or archive this comment?')) {
+      commentsState = commentsState.filter(c => c.id !== id);
+      saveComments();
+      renderEnchantedView();
+    }
+  };
+
+
+  /* --------------------------------------------------------------------------
+     3. Navigation Tabs Controller
      -------------------------------------------------------------------------- */
   const navLinks = document.querySelectorAll('.nav-link');
   const hudTitle = document.getElementById('hudTitle');
@@ -68,6 +169,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderActiveTab() {
+    if (activeTab === 'enchanted') {
+      renderEnchantedView();
+      return;
+    }
+
     if (activeTab === 'archive') {
       hudTitle.textContent = '> ARCHIVED MEMORIES';
       hudSub.textContent = '> 記憶のアーカイブ';
@@ -104,7 +210,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     3. Blog Entries Renderer (Supports Interspersed Text Lines & PNG Images)
+     4. Blog Entries Renderer
      -------------------------------------------------------------------------- */
   const entriesList = document.getElementById('entriesList');
   const blogModal = document.getElementById('blogModal');
@@ -136,7 +242,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     modalDate.textContent = `[ ${entry.date} ]`;
     modalTitle.textContent = entry.title;
 
-    // Build blocks: renders text paragraphs and embedded PNG images interspaced anywhere!
     let htmlHTML = '';
     if (entry.blocks && Array.isArray(entry.blocks)) {
       htmlHTML = entry.blocks.map(block => {
@@ -171,7 +276,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     4. Ambient Particle & Rain Canvas Background
+     5. Ambient Particle & Rain Canvas Background
      -------------------------------------------------------------------------- */
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
@@ -218,7 +323,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     5. Real-Time Time & Weather Update
+     6. Real-Time Time & Weather Update
      -------------------------------------------------------------------------- */
   const timeVal = document.getElementById('timeVal');
   const rainVal = document.getElementById('rainVal');
@@ -239,7 +344,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     6. Ambient Web Audio Synthesizer (Cassette Tape)
+     7. Ambient Web Audio Synthesizer (Cassette Tape)
      -------------------------------------------------------------------------- */
   const playAudioBtn = document.getElementById('playAudioBtn');
   const playSymbol = document.getElementById('playSymbol');

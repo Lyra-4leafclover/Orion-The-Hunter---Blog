@@ -126,19 +126,11 @@ html, body {
   text-shadow: 0 0 6px var(--pink-neon);
 }
 
-.site-sub {
-  font-size: 0.85rem;
-  color: var(--pink-neon);
-  letter-spacing: 3px;
-  text-shadow: 0 0 6px rgba(244, 114, 182, 0.8);
-  margin-top: 2px;
-}
-
 /* Nav Menu */
 .nav-bar {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .nav-link {
@@ -146,10 +138,10 @@ html, body {
   border: 1px solid transparent;
   color: rgba(233, 213, 255, 0.75);
   font-family: var(--font-mono);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   letter-spacing: 1.5px;
   cursor: pointer;
-  padding: 5px 12px;
+  padding: 5px 10px;
   border-radius: 3px;
   transition: all 0.25s ease;
 }
@@ -446,8 +438,9 @@ html, body {
 }
 
 .hud-message {
+  width: 100%;
   font-family: var(--font-mono);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   line-height: 1.8;
   color: #f3e8ff;
   display: flex;
@@ -488,6 +481,132 @@ html, body {
 
 .globe-icon:hover {
   transform: rotate(45deg) scale(1.2);
+}
+
+/* ENCHANTED GUESTBOOK & COMMENT WALL STYLES */
+.enchanted-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  text-align: left;
+}
+
+.enchanted-form {
+  background: rgba(18, 5, 33, 0.85);
+  border: 1px solid var(--purple-neon);
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.2);
+  border-radius: 6px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.enchanted-input, .enchanted-textarea {
+  background: rgba(8, 2, 16, 0.9);
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.enchanted-input:focus, .enchanted-textarea:focus {
+  border-color: var(--pink-neon);
+  box-shadow: 0 0 10px rgba(244, 114, 182, 0.4);
+}
+
+.enchanted-submit-btn {
+  background: rgba(168, 85, 247, 0.25);
+  border: 1px solid var(--purple-bright);
+  color: var(--purple-bright);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.3);
+}
+
+.enchanted-submit-btn:hover {
+  background: var(--purple-bright);
+  color: #000;
+  box-shadow: 0 0 20px var(--purple-bright);
+}
+
+.comments-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.comment-card {
+  background: rgba(22, 7, 40, 0.8);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  border-radius: 5px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comment-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  border-bottom: 1px dashed rgba(192, 132, 252, 0.2);
+  padding-bottom: 4px;
+}
+
+.comment-username {
+  color: var(--pink-neon);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.comment-time {
+  color: var(--purple-bright);
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+
+.comment-body-text {
+  font-size: 0.85rem;
+  color: #f3e8ff;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+.delete-comment-btn {
+  background: transparent;
+  border: none;
+  color: var(--pink-hot);
+  font-size: 0.75rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 0 4px;
+}
+
+.delete-comment-btn:hover {
+  opacity: 1;
 }
 
 /* LATEST ENTRIES PANEL */

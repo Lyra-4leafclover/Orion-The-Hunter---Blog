@@ -1,6 +1,7 @@
 @echo off
 echo ===================================================
 echo   ORION LOG — AUTOMATIC VERCEL PUBLISHER
+echo   Target Repo: Lyra-4leafclover/Orion-The-Hunter---Blog
 echo ===================================================
 echo.
 
@@ -15,7 +16,7 @@ echo [2/3] Committing changes...
 git commit -m "%msg%"
 
 echo [3/3] Pushing to GitHub & Syncing Vercel...
-git push
+git push -u origin main
 
 echo.
 echo ===================================================
