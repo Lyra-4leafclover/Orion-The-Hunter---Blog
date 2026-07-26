@@ -460,6 +460,18 @@ html, body {
   font-weight: bold;
 }
 
+.link-url {
+  color: var(--cyan-neon);
+  text-decoration: underline;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+  transition: all 0.2s ease;
+}
+
+.link-url:hover {
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 1);
+}
+
 .hud-bottom-bar {
   margin-top: 26px;
   width: 100%;

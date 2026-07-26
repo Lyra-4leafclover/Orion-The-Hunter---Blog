@@ -41,8 +41,8 @@
     "sub": "> リンク",
     "paragraphs": [
       "Connect with <span class=\"pink-glow\">Lyra</span>",
-      "✦ GitHub: @lyra_cs",
-      "✦ Twitter/X: @neon_lyra",
+      "✦ GitHub: <a href=\"https://github.com/Lyra-4leafclover\" target=\"_blank\" class=\"link-url\">@Lyra-4leafclover</a>",
+      "✦ Twitter/X: <a href=\"https://x.com/Lyra_void\" target=\"_blank\" class=\"link-url\">@Lyra_void</a>",
       "✦ Soundcloud: <span class=\"purple-glow\">midnight_mind</span>"
     ]
   },
