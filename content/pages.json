@@ -1,0 +1,49 @@
+{
+  "home": {
+    "title": "> WELCOME TO MY UNIVERSE",
+    "sub": "> ようこそ、私の世界へ",
+    "paragraphs": [
+      "I'm <span class=\"pink-glow\">Lyra</span>, a 20-year-old Computer Science student from India.",
+      "I collect projects, strange ideas, and little discoveries hidden between lines of code.",
+      "If knowledge is an endless forest, this blog is my <span class=\"purple-glow\">notebook left on a mossy stone</span>."
+    ]
+  },
+  "notes": {
+    "title": "> MIDNIGHT NOTES",
+    "sub": "> 深夜のメモ",
+    "paragraphs": [
+      "Fragments of <span class=\"pink-glow\">late night thoughts</span>.",
+      "\"Stars don't shine without darkness. Code doesn't compile without coffee.\"",
+      "Exploring aesthetics, soundscapes, and digital solitude under violet neon skies."
+    ]
+  },
+  "projects": {
+    "title": "> CREATIVE LAB",
+    "sub": "> プロジェクト",
+    "paragraphs": [
+      "Current Experiments & <span class=\"pink-glow\">Neon Builds</span>",
+      "⚡ Project Orion_Log v2.07 [ONLINE]",
+      "🔮 Synthwave Web Audio Engine [ACTIVE]",
+      "Building experiences where <span class=\"purple-glow\">code meets art</span>."
+    ]
+  },
+  "about": {
+    "title": "> ABOUT LYRA",
+    "sub": "> 私について",
+    "paragraphs": [
+      "Digital Nomad & <span class=\"pink-glow\">Aesthetic Enthusiast</span>",
+      "20-year-old CS Student crafting code, aesthetics, and lo-fi beats.",
+      "Passionate about UI engineering, dark fantasy visuals, and cyberpunk typography."
+    ]
+  },
+  "links": {
+    "title": "> NEON CONNECTIONS",
+    "sub": "> リンク",
+    "paragraphs": [
+      "Connect with <span class=\"pink-glow\">Lyra</span>",
+      "✦ GitHub: @lyra_cs",
+      "✦ Twitter/X: @neon_lyra",
+      "✦ Soundcloud: <span class=\"purple-glow\">midnight_mind</span>"
+    ]
+  }
+}

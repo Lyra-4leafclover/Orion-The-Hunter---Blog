@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORION LOG — dreaming in neon</title>
+  <meta name="description" content="Orion Log cyberpunk Y2K blog website powered by local file content management.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Share+Tech+Mono&family=VT323&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Space & Neon Dust Particle Canvas -->
+  <canvas id="bgCanvas"></canvas>
+  
+  <!-- Atmosphere Overlays -->
+  <div class="space-nebula-bg"></div>
+  <div class="scanlines-overlay"></div>
+  <div class="vignette-overlay"></div>
+
+  <!-- MAIN CANVAS COMPOSITION WRAPPER -->
+  <div class="canvas-wrapper">
+    
+    <!-- TOP HEADER / NAV BAR -->
+    <header class="top-header">
+      <div class="header-left">
+        <h1 class="site-title">
+          <span class="title-text" id="siteTitleText">ORION LOG</span>
+          <span class="emoji-butterfly">🕸️</span>
+          <span class="sparkle-star">✦</span>
+        </h1>
+        <div class="site-sub" id="siteSubText">dreaming in neon</div>
+      </div>
+
+      <nav class="nav-bar">
+        <button class="nav-link active" data-tab="home">&gt; HOME</button>
+        <button class="nav-link" data-tab="archive">&gt; ARCHIVE</button>
+        <button class="nav-link" data-tab="notes">&gt; NOTES</button>
+        <button class="nav-link" data-tab="projects">&gt; PROJECTS</button>
+        <button class="nav-link" data-tab="about">&gt; ABOUT</button>
+        <button class="nav-link" data-tab="links">&gt; LINKS</button>
+      </nav>
+
+      <div class="header-right">
+        <div class="sys-badge">
+          <span class="sys-online">SYS: // ONLINE</span>
+          <svg class="heartbeat-svg" viewBox="0 0 60 14">
+            <path d="M0 7 L15 7 L20 2 L25 12 L30 4 L35 9 L40 7 L60 7" stroke="#d8b4fe" stroke-width="1.2" fill="none"/>
+          </svg>
+          <span class="sys-ver">V2.07 <span class="star-mini">✦</span></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- FLOATING ARTWORK & COLLAGE COMPOSITION -->
+    <div class="composition-grid">
+
+      <!-- FAR LEFT: VERTICAL KANJI TEXT -->
+      <div class="kanji-strip" id="kanjiStripText">未来を夢見て</div>
+
+      <!-- LEFT COLUMN WIDGETS & ART -->
+      <div class="left-art-col">
+        
+        <!-- Weather Box -->
+        <div class="weather-widget">
+          <div class="weather-city" id="weatherCityText">NEON CITY_2077</div>
+          <div class="weather-row">TEMP: <span id="tempVal">18°C</span></div>
+          <div class="weather-row">RAIN: <span id="rainVal">82%</span></div>
+          <div class="weather-row time-row">TIME: <span id="timeVal">23:47</span></div>
+        </div>
+
+        <!-- Taped Cassette Player ("with you") -->
+        <div class="cassette-tape-art" id="cassetteContainer">
+          <div class="tape-scotch-strip"></div>
+          <div class="cassette-img-wrapper">
+            <img src="assets/cassette_tape_exact.jpg" alt="Cassette Tape with you" class="cassette-img">
+            <button class="cassette-play-overlay" id="playAudioBtn">
+              <span class="play-symbol" id="playSymbol">▶</span>
+              <span class="play-label" id="playLabel">PLAY TAPE</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Barbed Wire Neon Heart -->
+        <div class="heart-art-wrapper">
+          <img src="assets/barbed_wire_heart.jpg" alt="Glowing Barbed Wire Heart" class="heart-img">
+        </div>
+
+        <!-- Barcode ID Badge -->
+        <div class="barcode-id-badge">
+          <div class="barcode-lines"></div>
+          <div class="id-text" id="idTextBadge">ID: LYRA_XO</div>
+          <div class="level-text" id="idLevelBadge">LEVEL: DREAMER</div>
+          <div class="granted-text">-- ACCESS GRANTED --</div>
+        </div>
+
+      </div>
+
+      <!-- CENTER HUD TERMINAL & ENTRIES -->
+      <div class="center-hud-col">
+        
+        <!-- HUD Glass Frame -->
+        <div class="hud-terminal">
+          <!-- Corner brackets -->
+          <div class="bracket top-l"></div>
+          <div class="bracket top-r"></div>
+          <div class="bracket bot-l"></div>
+          <div class="bracket bot-r"></div>
+
+          <div class="hud-side-cross left-cross">+</div>
+          <div class="hud-side-cross right-cross">+</div>
+
+          <div class="hud-inner-content">
+            <h2 class="hud-heading" id="hudTitle">&gt; WELCOME TO MY UNIVERSE</h2>
+            <div class="hud-subheading" id="hudSub">&gt; ようこそ、私の世界へ</div>
+
+            <div class="hud-sparkle-divider">✦</div>
+
+            <div class="hud-message" id="hudMsg">
+              <!-- Content loaded from content/pages.json -->
+            </div>
+
+            <div class="hud-bottom-bar">
+              <span class="tags" id="hudTagsText">DREAMER // READER // CREATOR</span>
+              <span class="globe-icon" id="globeBtn" title="Toggle Spatial Matrix">🌐</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Latest Entries Panel -->
+        <div class="entries-panel">
+          <div class="entries-header-bar">
+            <div class="entries-header-title">&gt; LATEST ENTRIES --</div>
+          </div>
+          <div class="entries-stack" id="entriesList">
+            <!-- Dynamically populated from content/entries.json -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE ARTWORK COLLAGE -->
+      <div class="right-art-col">
+        
+        <!-- Top Wireframe Flower -->
+        <div class="wireframe-flower-art">
+          <img src="assets/glowing_flower_exact.png" alt="Wireframe Blueprint Flower" class="flower-img">
+        </div>
+
+        <!-- Disbelief Zine Poster (Paperclipped) -->
+        <div class="disbelief-poster-art">
+          <div class="paperclip-icon">📎</div>
+          <img src="assets/disbelief_poster_exact.png" alt="Disbelief Zine Graphic Poster" class="poster-img">
+        </div>
+
+        <!-- Cyberpunk Sticker Tag (Bottom Right) -->
+        <div class="cyberpunk-tag-art">
+          <div class="tag-card-content">
+            <div class="tag-jp-title">サイバーパンク</div>
+            <div class="tag-jp-sub">未来はここにある</div>
+            <div class="tag-en-title">CYBERPUNK // 2077</div>
+            <div class="tag-barcode"></div>
+            <div class="tag-warning"><span class="warn-sym">⚠️</span> ACCESS RESTRICTED</div>
+          </div>
+          <div class="bottom-quote">
+            <span class="moon-symbol">☾</span>
+            <div class="quote-line">STAY_WEIRD</div>
+            <div class="quote-line">STAY_KIND</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Interactive Blog Entry Reader Modal -->
+  <div class="reader-modal-overlay" id="blogModal">
+    <div class="reader-modal-box">
+      <button class="modal-close-x" id="modalCloseX">&times;</button>
+      <div class="modal-top">
+        <span class="modal-date-tag" id="modalDate">[ 26.07.2026 ]</span>
+        <h2 class="modal-headline" id="modalTitle">learning never stops</h2>
+      </div>
+      <div class="modal-line"></div>
+      <div class="modal-body-text" id="modalContent"></div>
+      <div class="modal-bottom">
+        <button class="modal-dismiss-btn" id="modalDismiss">CLOSE ENTRY</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
