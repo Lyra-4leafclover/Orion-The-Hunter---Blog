@@ -105,14 +105,15 @@ html, body {
 
 .site-title {
   font-family: var(--font-header);
-  font-size: 1.35rem;
+  font-size: 1.08rem;
   font-weight: 900;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: var(--purple-bright);
   text-shadow: 0 0 10px rgba(192, 132, 252, 0.9), 0 0 20px rgba(168, 85, 247, 0.5);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .emoji-butterfly {
@@ -130,7 +131,7 @@ html, body {
 .nav-bar {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
 }
 
 .nav-link {
@@ -138,12 +139,13 @@ html, body {
   border: 1px solid transparent;
   color: rgba(233, 213, 255, 0.75);
   font-family: var(--font-mono);
-  font-size: 0.86rem;
-  letter-spacing: 1.5px;
+  font-size: 0.82rem;
+  letter-spacing: 1px;
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 3px;
   transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
 .nav-link:hover, .nav-link.active {
