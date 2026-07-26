@@ -232,6 +232,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const hudSub = document.getElementById('hudSub');
   const hudMsg = document.getElementById('hudMsg');
   const viewAllEntriesBtn = document.getElementById('viewAllEntriesBtn');
+  const entriesPanel = document.querySelector('.entries-panel');
 
   function getNewsletterHTML() {
     const newsListHTML = newslettersData.map(news => `
@@ -281,6 +282,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderActiveTab() {
+    // Hide latest entries bottom panel on Newsletter & Enchanted pages to prevent clutter
+    if (activeTab === 'newsletter' || activeTab === 'enchanted') {
+      if (entriesPanel) entriesPanel.style.display = 'none';
+    } else {
+      if (entriesPanel) entriesPanel.style.display = 'flex';
+    }
+
     if (activeTab === 'enchanted') {
       renderEnchantedView();
       return;
