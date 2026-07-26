@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const CLOUD_API_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019f9fb2b65e2d4e';
 
   const defaultComments = [
+    { id: 'c1', username: 'neon_wanderer', time: '26.07.2026 22:40', text: 'Loved the dark aesthetic of this blog! ✨' },
     { id: 'c2', username: 'cyber_dreamer', time: '25.07.2026 19:15', text: 'Super cool lo-fi cassette synth player.' }
   ];
 
