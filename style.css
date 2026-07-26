@@ -654,6 +654,29 @@ html, body {
   box-shadow: 0 0 16px var(--purple-bright);
 }
 
+.view-all-entries-footer-btn {
+  background: rgba(18, 5, 33, 0.85);
+  border: 1px solid var(--purple-bright);
+  color: var(--purple-bright);
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  text-align: center;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.2);
+}
+
+.view-all-entries-footer-btn:hover {
+  background: var(--purple-bright);
+  color: #000;
+  box-shadow: 0 0 25px var(--purple-bright);
+}
+
 .archive-entries-container {
   margin-top: 14px;
   width: 100%;
