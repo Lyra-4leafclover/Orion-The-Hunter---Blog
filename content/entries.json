@@ -20,24 +20,7 @@
       },
       {
         "type": "text",
-        "content": "<p>I used Tkinter and PIL so that whenever an image question pops up (like identifying an animal), a separate window opens with the picture, and then closes when you move on. I also added a simple hint trigger.</p><p>Here’s how I handled opening the image popups:</p><pre style=\"background:rgba(8,2,16,0.9);border:1px solid var(--purple-neon);padding:12px;border-radius:6px;overflow-x:auto;color:#d8b4fe;font-family:var(--font-mono);font-size:0.82rem;margin:10px 0;\"><code>def show_image_window(image_path):
-    if not os.path.exists(image_path):
-        print(f\"⚠️ Warning: Could not find image file '{image_path}'. Skipping image display.\")
-        return None
-
-    img_window = tk.Toplevel()
-    img_window.title(\"Question Image\")
-    
-    raw_img = Image.open(image_path)
-    raw_img.thumbnail((300, 300))
-    quiz_img = ImageTk.PhotoImage(raw_img)
-    
-    img_label = tk.Label(img_window, image=quiz_img)
-    img_label.image = quiz_img  # Reference to avoid garbage collection
-    img_label.pack(padx=10, pady=10)
-    
-    img_window.update()
-    return img_window</code></pre><p>It was fun seeing how differently both of us built the exact same thing on Sunday. Next week we’re making a typing speed tester.</p>"
+        "content": "<p>I used Tkinter and PIL so that whenever an image question pops up (like identifying an animal), a separate window opens with the picture, and then closes when you move on. I also added a simple hint trigger.</p><p>Here’s how I handled opening the image popups:</p><pre style=\"background:rgba(8,2,16,0.9);border:1px solid var(--purple-neon);padding:12px;border-radius:6px;overflow-x:auto;color:#d8b4fe;font-family:var(--font-mono);font-size:0.82rem;margin:10px 0;\"><code>def show_image_window(image_path):\n    if not os.path.exists(image_path):\n        print(f\"⚠️ Warning: Could not find image file '{image_path}'. Skipping image display.\")\n        return None\n\n    img_window = tk.Toplevel()\n    img_window.title(\"Question Image\")\n    \n    raw_img = Image.open(image_path)\n    raw_img.thumbnail((300, 300))\n    quiz_img = ImageTk.PhotoImage(raw_img)\n    \n    img_label = tk.Label(img_window, image=quiz_img)\n    img_label.image = quiz_img  # Reference to avoid garbage collection\n    img_label.pack(padx=10, pady=10)\n    \n    img_window.update()\n    return img_window</code></pre><p>It was fun seeing how differently both of us built the exact same thing on Sunday. Next week we’re making a typing speed tester.</p>"
       },
       {
         "type": "text",
@@ -78,48 +61,6 @@
       {
         "type": "text",
         "content": "<p style=\"margin-top:14px;font-weight:bold;color:var(--purple-bright);\">Onward to next week's typing speed build and Phantom Gate prototyping!</p>"
-      }
-    ]
-  },
-  {
-    "id": "entry-1",
-    "year": 2026,
-    "date": "26.07.2026",
-    "title": "learning never stops",
-    "blocks": [
-      {
-        "type": "text",
-        "content": "Every single day presents a new syntax to master, a new aesthetic to explore, and a new perspective to embrace."
-      },
-      {
-        "type": "image",
-        "src": "assets/cassette_tape_exact.jpg",
-        "alt": "Cyberpunk Cassette Tape"
-      },
-      {
-        "type": "text",
-        "content": "In this digital realm, growth isn't linear—it cascades like glowing pixels in rain. Never stay comfortable with what you already know. Keep building, keep dreaming, and stay curious forever."
-      }
-    ]
-  },
-  {
-    "id": "entry-2",
-    "year": 2026,
-    "date": "24.07.2026",
-    "title": "notes from a midnight mind",
-    "blocks": [
-      {
-        "type": "text",
-        "content": "The city is quiet at 2 AM. Only the soft hum of the neon lights and the rhythmic tap of keys echo through the dark."
-      },
-      {
-        "type": "image",
-        "src": "assets/glowing_flower_exact.png",
-        "alt": "Wireframe Lotus Flower"
-      },
-      {
-        "type": "text",
-        "content": "Midnight is when the purest ideas take form. No noise, no distractions—just raw creativity under a violet sky."
       }
     ]
   },
