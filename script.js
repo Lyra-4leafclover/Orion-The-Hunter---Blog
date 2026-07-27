@@ -1,35 +1,272 @@
 /* ==========================================================================
-   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Tech Newsletter Engine
+   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Embedded Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  let siteConfig = {};
-  let pagesData = {};
-  let entriesData = [];
-  let newslettersData = [];
-  let projectsData = [];
+  const siteConfig = {
+    siteTitle: "ORION LOG",
+    siteSub: "",
+    kanjiText: "未来を夢見て",
+    weatherCity: "NEON CITY_2077",
+    idText: "ID: LYRA_XO",
+    idLevel: "LEVEL: DREAMER",
+    hudTags: "DREAMER // READER // CREATOR"
+  };
+
+  const pagesData = {
+    home: {
+      title: "> WELCOME TO MY UNIVERSE",
+      sub: "> ようこそ、私の世界へ",
+      paragraphs: [
+        "I'm <span class=\"pink-glow\">Lyra</span>, a 20-year-old Computer Science student from India.",
+        "I collect projects, strange ideas, and little discoveries hidden between lines of code.",
+        "If knowledge is an endless forest, this blog is my <span class=\"purple-glow\">notebook left on a mossy stone</span>."
+      ]
+    },
+    notes: {
+      title: "> MIDNIGHT NOTES",
+      sub: "> 深夜のメモ",
+      paragraphs: [
+        "Fragments of <span class=\"pink-glow\">late night thoughts</span>.",
+        "\"Stars don't shine without darkness. Code doesn't compile without coffee.\"",
+        "Exploring Reading, soundscapes, and digital solitude under violet aurora skies."
+      ]
+    },
+    projects: {
+      title: "> CREATIVE LAB",
+      sub: "> プロジェクト",
+      paragraphs: [
+        "Current Experiments & <span class=\"pink-glow\">Neon Builds</span>",
+        "⚡ Project Orion_Log v2.07 [ONLINE]",
+        "🔮 Synthwave Web Audio Engine [ACTIVE]",
+        "Building experiences where <span class=\"purple-glow\">code meets art</span>."
+      ]
+    },
+    newsletter: {
+      title: "> TECH NEWSLETTER",
+      sub: "> 最新テックニュース",
+      paragraphs: [
+        "Decrypted <span class=\"pink-glow\">Tech News Dispatches</span> & World Innovations.",
+        "Weekly updates on AI breakthroughs, quantum computing, and global cyber innovations compiled by <span class=\"purple-glow\">Lyra</span>."
+      ]
+    },
+    links: {
+      title: "> NEON CONNECTIONS",
+      sub: "> リンク",
+      paragraphs: [
+        "Connect with <span class=\"pink-glow\">Lyra</span> across the cyber grid:",
+        "✦ <strong>GitHub:</strong> <a href=\"https://github.com/Lyra-4leafclover\" target=\"_blank\" class=\"link-url\">https://github.com/Lyra-4leafclover</a>",
+        "✦ <strong>Twitter/X:</strong> <a href=\"https://x.com/Lyra_void\" target=\"_blank\" class=\"link-url\">https://x.com/Lyra_void</a>"
+      ]
+    },
+    enchanted: {
+      title: "> ENCHANTED GUESTBOOK",
+      sub: "> 魔法のメッセージ",
+      paragraphs: [
+        "Leave your mark in the <span class=\"pink-glow\">Cyber Matrix</span>. Choose a username and drop an enchanted note for Lyra."
+      ]
+    }
+  };
+
+  const projectsData = [
+    {
+      id: "proj-1",
+      date: "2026",
+      title: "Project Orion_Log v2.07",
+      status: "ONLINE",
+      category: "CYBERPUNK CMS BLOG",
+      summary: "A file-driven Y2K neon blog engine with real-time cloud guestbook, synthwave Web Audio, and frameless graphic collages.",
+      blocks: [
+        { type: "text", content: "Orion_Log is an aesthetic cyberpunk micro-journal built with pure HTML, CSS, and JS. Powered by local file content management and real-time cloud APIs." },
+        { type: "image", src: "assets/disbelief_poster_exact.png", alt: "Orion Log Architecture Blueprint" }
+      ],
+      link: "https://github.com/Lyra-4leafclover/Orion-The-Hunter---Blog"
+    },
+    {
+      id: "proj-2",
+      date: "2026",
+      title: "Synthwave Web Audio Engine",
+      status: "ACTIVE",
+      category: "AUDIO SYNTHESIZER",
+      summary: "Custom Web Audio API lo-fi chord synthesizer featuring ambient sawtooth filters and tape reel animations.",
+      blocks: [
+        { type: "text", content: "An embedded browser synthesizer generating generative 2077 lo-fi chord progressions dynamically in real-time." },
+        { type: "image", src: "assets/cassette_tape_exact.jpg", alt: "Synthwave Audio Engine Tape Reel" }
+      ],
+      link: "https://github.com/Lyra-4leafclover"
+    },
+    {
+      id: "proj-3",
+      date: "2025",
+      title: "Neon Matrix Particle System",
+      status: "COMPLETED",
+      category: "CANVAS SHADER",
+      summary: "Lightweight HTML5 canvas particle simulation rendering floating space dust and neon rain.",
+      blocks: [
+        { type: "text", content: "A high-performance particle engine rendering glowing atmospheric neon dust under violet skies." }
+      ],
+      link: "https://github.com/Lyra-4leafclover"
+    }
+  ];
+
+  const newslettersData = [
+    {
+      id: "news-1",
+      date: "27.07.2026",
+      category: "AI & HARDWARE",
+      title: "quantum neural chips breakthrough",
+      blocks: [
+        { type: "text", content: "Researchers demonstrate 100x efficiency gains using photon-guided neural architecture in quantum processing units." }
+      ]
+    },
+    {
+      id: "news-2",
+      date: "25.07.2026",
+      category: "CYBERNETICS",
+      title: "decentralized autonomous web protocols",
+      blocks: [
+        { type: "text", content: "Next generation peer-to-peer web networks introduce zero-latency edge caching and encrypted mesh memory." }
+      ]
+    },
+    {
+      id: "news-3",
+      date: "22.07.2026",
+      category: "INTERFACE DESIGN",
+      title: "next-gen spatial UI frameworks",
+      blocks: [
+        { type: "text", content: "Exploring tactile cybernetic interfaces and glowing glassmorphism in modern operating environments." }
+      ]
+    }
+  ];
+
+  const entriesData = [
+    {
+      id: "entry-weekly-1",
+      year: 2026,
+      date: "27.07.2026",
+      title: "Weekly Log: 第1周 27-07-2026",
+      blocks: [
+        {
+          type: "text",
+          content: "Had a pretty productive week working on a few projects and diving deeper into some computer science topics."
+        },
+        {
+          type: "text",
+          content: "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">1. Sunday Quiz Project Reveal</h3><p>My friend and I do this thing where we pick a mini project, build it separately during the week without showing each other, and then reveal what we made on Sunday to learn Python together.</p><p>This week’s project was a quiz maker. Instead of just doing a basic text quiz in the terminal, I wanted to support different question types (like multiple choice, fill-in-the-blank, and images).</p>"
+        },
+        {
+          type: "image",
+          src: "assets/post1_quiz_tkinter.png",
+          alt: "Tkinter Red Panda Quiz Image Popup"
+        },
+        {
+          type: "text",
+          content: "<p>I used Tkinter and PIL so that whenever an image question pops up (like identifying an animal), a separate window opens with the picture, and then closes when you move on. I also added a simple hint trigger.</p><p>Here’s how I handled opening the image popups:</p><pre style=\"background:rgba(8,2,16,0.9);border:1px solid var(--purple-neon);padding:12px;border-radius:6px;overflow-x:auto;color:#d8b4fe;font-family:var(--font-mono);font-size:0.82rem;margin:10px 0;\"><code>def show_image_window(image_path):\n    if not os.path.exists(image_path):\n        print(f\"⚠️ Warning: Could not find image file '{image_path}'. Skipping image display.\")\n        return None\n\n    img_window = tk.Toplevel()\n    img_window.title(\"Question Image\")\n    \n    raw_img = Image.open(image_path)\n    raw_img.thumbnail((300, 300))\n    quiz_img = ImageTk.PhotoImage(raw_img)\n    \n    img_label = tk.Label(img_window, image=quiz_img)\n    img_label.image = quiz_img  # Reference to avoid garbage collection\n    img_label.pack(padx=10, pady=10)\n    \n    img_window.update()\n    return img_window</code></pre><p>It was fun seeing how differently both of us built the exact same thing on Sunday. Next week we’re making a typing speed tester.</p>"
+        },
+        {
+          type: "text",
+          content: "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">2. IoT Expothon: Phantom Gate</h3><p>I’m also working on an IoT Expothon project called <strong style=\"color:var(--purple-bright);\">Phantom Gate – AI-Based Smart Industrial Safety & Access Control System</strong>.</p><p>It’s essentially a tabletop maze setup where judges turn a rotary encoder to move a payload through a grid. The catch is that the grid has invisible optical beam sensors. If someone breaks a beam, the system:</p><ul style=\"padding-left:20px;margin:8px 0;line-height:1.8;\"><li>Triggers an emergency E-STOP</li><li>Snaps a photo of their face</li><li>Plays a voice alert (\"INTRUDER DETECTED\")</li><li>Sends an emergency SMS to a phone</li></ul><p>There's a lot of hardware and sensor logic involved, but it's going to be cool to test out physically.</p>"
+        },
+        {
+          type: "text",
+          content: "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">3. Capstone Project: Document Reassembly with OpenCV</h3><p>I also built a capstone project focused on automated document reassembly using OpenCV and computer vision. The idea is simple but tricky in practice: if you feed it images of shredded paper strips, jigsaw pieces of a document, or torn receipts, the system analyzes the edges, contours, and text/line continuations to piece them back together into the original document. It was a really fun challenge working through the image processing pipeline and matching logic to get the fragments aligning correctly.</p>"
+        },
+        {
+          type: "image",
+          src: "assets/post1_opencv_shreds.png",
+          alt: "OpenCV Interactive Light Table Shredded Strips"
+        },
+        {
+          type: "image",
+          src: "assets/post1_opencv_reassembled.png",
+          alt: "OpenCV Reassembled Classified Document"
+        },
+        {
+          type: "image",
+          src: "assets/post1_opencv_jigsaw.png",
+          alt: "OpenCV Torn Scenery Strips Jigsaw Reassembly"
+        },
+        {
+          type: "text",
+          content: "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">4. LeetCode SQL & BFS</h3><p><strong style=\"color:var(--purple-bright);\">MySQL on LeetCode:</strong> I just realized LeetCode has dedicated MySQL problem sets! Diving straight into database queries alongside standard DSA problems is going to make practicing SQL so much more structured.</p><p><strong style=\"color:var(--purple-bright);\">Graph Algorithms (BFS):</strong> I spent time mastering the theory and code for Breadth-First Search (BFS). Understanding queue-based level-order traversal opens up so many pathfinding possibilities, and I’m ready to start applying it to graph-based problems soon.</p>"
+        },
+        {
+          type: "text",
+          content: "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">5. Course Realities & Cool Finds</h3><p><strong style=\"color:var(--purple-bright);\">Pivot on NPTEL:</strong> I started my NPTEL coursework this week, but to be completely honest, the lectures aren't landing well for me. Instead of slogging through material that isn't sticking, I’m taking full ownership of my learning path and switching to curated self-study resources.</p><h3 style=\"color:var(--pink-neon);margin-top:10px;\">6. Tool of the Week</h3><p>I stumbled upon <strong style=\"color:var(--purple-bright);\">Chai Visual</strong> (\"Learn CS by watching it move\"). Watching data structures, pointers, and memory step through frame-by-frame makes complex algorithm logic click instantly. Highly recommended if you're a visual learner.</p>"
+        },
+        {
+          type: "image",
+          src: "assets/post1_chai_visual.png",
+          alt: "Chai Visual Algorithms You Can See UI"
+        },
+        {
+          type: "text",
+          content: "<p style=\"margin-top:14px;font-weight:bold;color:var(--purple-bright);\">Onward to next week's typing speed build and Phantom Gate prototyping!</p>"
+        }
+      ]
+    },
+    {
+      id: "entry-1",
+      year: 2026,
+      date: "26.07.2026",
+      title: "learning never stops",
+      blocks: [
+        {
+          type: "text",
+          content: "Every single day presents a new syntax to master, a new aesthetic to explore, and a new perspective to embrace."
+        },
+        {
+          type: "image",
+          src: "assets/cassette_tape_exact.jpg",
+          alt: "Cyberpunk Cassette Tape"
+        },
+        {
+          type: "text",
+          content: "In this digital realm, growth isn't linear—it cascades like glowing pixels in rain. Never stay comfortable with what you already know. Keep building, keep dreaming, and stay curious forever."
+        }
+      ]
+    },
+    {
+      id: "entry-2",
+      year: 2026,
+      date: "24.07.2026",
+      title: "notes from a midnight mind",
+      blocks: [
+        {
+          type: "text",
+          content: "The city is quiet at 2 AM. Only the soft hum of the neon lights and the rhythmic tap of keys echo through the dark."
+        },
+        {
+          type: "image",
+          src: "assets/glowing_flower_exact.png",
+          alt: "Wireframe Lotus Flower"
+        },
+        {
+          type: "text",
+          content: "Midnight is when the purest ideas take form. No noise, no distractions—just raw creativity under a violet sky."
+        }
+      ]
+    },
+    {
+      id: "entry-3",
+      year: 2026,
+      date: "21.07.2026",
+      title: "building my dream life",
+      blocks: [
+        {
+          type: "text",
+          content: "Designing your dream life is just like crafting code: define your vision, remove the bugs, and execute with passion."
+        },
+        {
+          type: "text",
+          content: "Step by step, layer by layer, turning imagination into reality."
+        }
+      ]
+    }
+  ];
+
   let activeTab = 'home';
-
-  // Load configuration files from local content/ directory with cache-busting
-  const cb = '?v=' + Date.now();
-  try {
-    const [resSite, resPages, resEntries, resNews, resProj] = await Promise.all([
-      fetch('content/site.json' + cb),
-      fetch('content/pages.json' + cb),
-      fetch('content/entries.json' + cb),
-      fetch('content/newsletters.json' + cb),
-      fetch('content/projects.json' + cb)
-    ]);
-
-    siteConfig = await resSite.json();
-    pagesData = await resPages.json();
-    entriesData = await resEntries.json();
-    newslettersData = await resNews.json();
-    projectsData = await resProj.json();
-  } catch (err) {
-    console.error('Error loading content JSON files:', err);
-  }
 
   /* --------------------------------------------------------------------------
      0. Owner Moderation Mode (Disabled for Vercel Visitors by default)
@@ -119,7 +356,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Pre-fetch cloud comments on init
   fetchCloudComments();
 
   async function renderEnchantedView() {
@@ -215,7 +451,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     `).join('');
   }
 
-  // Global helper for comment deletion
   window.deleteComment = async function(id) {
     if (confirm('Delete or archive this comment?')) {
       commentsState = commentsState.filter(c => c.id !== id);
@@ -226,7 +461,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     3. Navigation Tabs Controller & Projects Engine
+     3. Navigation Tabs Controller & Renderers
      -------------------------------------------------------------------------- */
   const navLinks = document.querySelectorAll('.nav-link');
   const hudTitle = document.getElementById('hudTitle');
@@ -303,7 +538,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderActiveTab() {
-    // Force hide latest entries bottom panel on all pages EXCEPT home tab
     const entriesPanel = document.querySelector('.entries-panel');
     if (entriesPanel) {
       if (activeTab === 'home') {
@@ -375,7 +609,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     4. Blog, Newsletter & Projects Modal Reader
+     4. Blog Reader Modal Engine
      -------------------------------------------------------------------------- */
   const entriesList = document.getElementById('entriesList');
   const blogModal = document.getElementById('blogModal');
@@ -473,7 +707,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     5. Ambient Particle & Rain Canvas Background
+     5. Ambient Particle Canvas Background
      -------------------------------------------------------------------------- */
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
@@ -520,7 +754,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     6. Real-Time Time & Weather Update
+     6. Real-Time Clock & Weather
      -------------------------------------------------------------------------- */
   const timeVal = document.getElementById('timeVal');
   const rainVal = document.getElementById('rainVal');
