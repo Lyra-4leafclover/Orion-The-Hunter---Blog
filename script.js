@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Real-Time Cloud Engine
+   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Tech Newsletter Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -11,14 +11,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   let projectsData = [];
   let activeTab = 'home';
 
-  // Load configuration files from local content/ directory
+  // Load configuration files from local content/ directory with cache-busting
+  const cb = '?v=' + Date.now();
   try {
     const [resSite, resPages, resEntries, resNews, resProj] = await Promise.all([
-      fetch('content/site.json'),
-      fetch('content/pages.json'),
-      fetch('content/entries.json'),
-      fetch('content/newsletters.json'),
-      fetch('content/projects.json')
+      fetch('content/site.json' + cb),
+      fetch('content/pages.json' + cb),
+      fetch('content/entries.json' + cb),
+      fetch('content/newsletters.json' + cb),
+      fetch('content/projects.json' + cb)
     ]);
 
     siteConfig = await resSite.json();
@@ -367,7 +368,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   if (viewAllEntriesBtn) {
-    viewAllEntriesBtn.addEventListener('click', () => switchToTab('newsletter'));
+    viewAllEntriesBtn.addEventListener('click', () => switchToTab('archive'));
   }
 
   renderActiveTab();
