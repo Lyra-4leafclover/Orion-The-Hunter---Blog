@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#c084fc" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0c0414" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background Card -->
+  <rect width="64" height="64" rx="16" fill="#0c0414"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#c084fc" stroke-width="1.5" stroke-opacity="0.6"/>
+  
+  <!-- Ambient Glow -->
+  <circle cx="32" cy="32" r="26" fill="url(#glow)"/>
+  
+  <!-- Cyber Web Lines -->
+  <path d="M32 10 L32 54 M10 32 L54 32 M16 16 L48 48 M16 48 L48 16" stroke="#c084fc" stroke-width="1.2" stroke-opacity="0.7"/>
+  <polygon points="32,20 38,32 50,32 40,38 44,50 32,42 20,50 24,38 14,32 26,32" fill="none" stroke="#f472b6" stroke-width="1.2"/>
+
+  <!-- Center Glowing Sparkle Star -->
+  <polygon points="32,14 36,28 50,32 36,36 32,50 28,36 14,32 28,28" fill="#e9d5ff"/>
+  <circle cx="32" cy="32" r="3.5" fill="#f472b6"/>
+</svg>
