@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Embedded Engine
+   ORION LOG CMS - File-Driven Cyberpunk Y2K Frontend & Direct Post Sharing Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let activeTab = 'home';
 
   /* --------------------------------------------------------------------------
-     0. Owner Moderation Mode (Disabled for Vercel Visitors by default)
+     0. Owner Moderation Mode
      -------------------------------------------------------------------------- */
   const urlParams = new URLSearchParams(window.location.search);
   let isModerator = localStorage.getItem('lyra_mod_mode') === 'true' || urlParams.has('mod');
@@ -225,7 +225,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     alert(isModerator ? '🛠️ Owner Comment Moderation Mode Enabled.' : '🔒 Public Visitor Mode Active (Delete buttons hidden).');
   }
 
-  // Secret Shortcut: Ctrl + Shift + M to toggle Owner Comment Delete Access
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'm') {
       e.preventDefault();
@@ -551,7 +550,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   /* --------------------------------------------------------------------------
-     4. Blog Reader Modal Engine
+     4. Blog Reader Modal Engine & Direct Shareable Link Handler
      -------------------------------------------------------------------------- */
   const entriesList = document.getElementById('entriesList');
   const blogModal = document.getElementById('blogModal');
@@ -583,6 +582,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     modalDate.textContent = `[ ${entry.date} ]`;
     modalTitle.textContent = entry.title;
 
+    const directShareUrl = `${window.location.origin}${window.location.pathname}?post=${entry.id}`;
+
     let htmlHTML = '';
     if (entry.blocks && Array.isArray(entry.blocks)) {
       htmlHTML = entry.blocks.map(block => {
@@ -601,19 +602,41 @@ document.addEventListener('DOMContentLoaded', async () => {
       htmlHTML += `<p style="margin-top:14px;"><a href="${entry.link}" target="_blank" class="link-url">🔗 VIEW LIVE PROJECT / REPO &gt;</a></p>`;
     }
 
+    // Shareable link box
+    htmlHTML += `
+      <div style="margin-top:22px;padding:12px;background:rgba(192,132,252,0.08);border:1px dashed var(--purple-bright);border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+        <span style="font-family:var(--font-mono);font-size:0.78rem;color:rgba(233,213,255,0.85);word-break:break-all;">🔗 Direct Link: ${directShareUrl}</span>
+        <button onclick="copyPostLink('${directShareUrl}')" style="background:var(--pink-neon);border:none;color:#fff;font-family:var(--font-mono);font-size:0.75rem;padding:6px 12px;border-radius:4px;cursor:pointer;white-space:nowrap;font-weight:bold;box-shadow:0 0 10px rgba(244,114,182,0.5);">📋 COPY POST LINK</button>
+      </div>
+    `;
+
     modalContent.innerHTML = htmlHTML;
     blogModal.classList.add('active');
+
+    // Dynamically update browser address bar with post ID
+    history.pushState(null, '', `?post=${entry.id}`);
   }
+
+  window.copyPostLink = function(url) {
+    navigator.clipboard.writeText(url);
+    alert('✨ Direct Share Link copied to clipboard!\nYou can now share this exact link with anyone.');
+  };
 
   window.openEntryModalById = function(id) {
     const found = entriesData.find(e => e.id === id);
-    if (found) openEntryModal(found);
+    if (found) {
+      openEntryModal(found);
+    } else {
+      const proj = projectsData.find(p => p.id === id);
+      if (proj) openProjectModalById(id);
+    }
   };
 
   window.openNewsletterModalById = function(id) {
     const found = newslettersData.find(n => n.id === id);
     if (found) {
       openEntryModal({
+        id: found.id,
         date: `${found.date} | ${found.category}`,
         title: found.title,
         blocks: found.blocks
@@ -625,6 +648,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const found = projectsData.find(p => p.id === id);
     if (found) {
       openEntryModal({
+        id: found.id,
         date: `${found.date} | ${found.category} [${found.status}]`,
         title: found.title,
         blocks: found.blocks,
@@ -635,6 +659,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function closeModal() {
     blogModal.classList.remove('active');
+    history.pushState(null, '', window.location.pathname);
   }
 
   if (modalCloseX) modalCloseX.addEventListener('click', closeModal);
@@ -645,7 +670,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  // Auto-open modal if URL contains ?post=id or #post=id
+  function checkUrlForDirectPost() {
+    const postParam = urlParams.get('post') || window.location.hash.replace('#post=', '');
+    if (postParam) {
+      setTimeout(() => {
+        openEntryModalById(postParam);
+      }, 350);
+    }
+  }
+
   renderEntriesList();
+  checkUrlForDirectPost();
 
 
   /* --------------------------------------------------------------------------
