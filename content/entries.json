@@ -63,21 +63,5 @@
         "content": "<p style=\"margin-top:14px;font-weight:bold;color:var(--purple-bright);\">Onward to next week's typing speed build and Phantom Gate prototyping!</p>"
       }
     ]
-  },
-  {
-    "id": "entry-3",
-    "year": 2026,
-    "date": "21.07.2026",
-    "title": "building my dream life",
-    "blocks": [
-      {
-        "type": "text",
-        "content": "Designing your dream life is just like crafting code: define your vision, remove the bugs, and execute with passion."
-      },
-      {
-        "type": "text",
-        "content": "Step by step, layer by layer, turning imagination into reality."
-      }
-    ]
   }
 ]
