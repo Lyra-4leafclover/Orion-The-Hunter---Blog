@@ -951,9 +951,7 @@ html, body {
 }
 
 .modal-line {
-  height: 1px;
-  background: rgba(192, 132, 252, 0.3);
-  margin: 14px 0;
+  display: none !important;
 }
 
 .modal-body-text {
