@@ -1,5 +1,59 @@
 [
   {
+    "id": "entry-weekly-2",
+    "year": 2026,
+    "date": "05.08.2026",
+    "title": "Weekly Log: 第2周 05-08-2026",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "This week was a bit more focused on learning than building. I spent most of my free time reading about machine learning, catching up with university work, and planning another project for the IoT Club. I didn't finish as many projects as last week, but I definitely learnt a lot."
+      },
+      {
+        "type": "text",
+        "content": "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">1. Learning Machine Learning</h3><p>This week I finally started reading <strong style=\"color:var(--purple-bright);\">Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow</strong> by Aurélien Géron. It's a book that I've been meaning to start for a while now, and I've currently completed <strong style=\"color:var(--pink-neon);\">39 out of 564 pages</strong>.</p><p>The chapters I've read so far focus more on understanding the different types of machine learning rather than immediately jumping into coding. It explains where each learning method is used, how they differ from one another, and introduces a lot of the terminology that's used throughout machine learning.</p><p>Instead of filling this post with a long list of topics, I made this little retro desktop-style summary of everything I covered this week.</p>"
+      },
+      {
+        "type": "image",
+        "src": "assets/post2_ml_overview.jpg",
+        "alt": "Machine Learning Overview Retro Desktop Summary"
+      },
+      {
+        "type": "text",
+        "content": "<p>I liked that the book doesn't assume you already know everything. It starts from the basics and slowly builds up, which makes it a lot easier to understand before getting into actual implementations.</p>"
+      },
+      {
+        "type": "text",
+        "content": "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">2. University Work</h3><p>A lot of this week also went into university assignments and NPTEL work.</p><p>Since deadlines were getting closer, I decided to spend more time finishing assignments instead of starting another side project. Nothing particularly exciting here, but it feels good getting everything out of the way before moving on to bigger projects again.</p>"
+      },
+      {
+        "type": "text",
+        "content": "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">3. Learning WEKA</h3><p>Along with the book, I also started learning <strong style=\"color:var(--purple-bright);\">WEKA</strong>.</p><p>WEKA is a machine learning software developed by the University of Waikato that lets you experiment with machine learning algorithms through a graphical interface instead of writing code. You can import datasets, preprocess them, train different models, visualize results and compare algorithms all in one place.</p><p>Since I'm still learning machine learning itself, it was nice being able to actually see these algorithms running instead of only reading about them.</p>"
+      },
+      {
+        "type": "text",
+        "content": "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">4. New IoT Club Project</h3><p>We've also started planning our next IoT Club project, which is a <strong style=\"color:var(--purple-bright);\">Smart Clothing Organizer</strong>.</p><p>The idea is to build a smart wardrobe that can automatically bring the clothing item you're looking for to the front. Instead of searching through your closet, you simply choose the item from a mobile app, and the organizer moves it into view while an LED points directly at it.</p><p>We're also planning to add quite a few extra features like filtering clothes based on the weather or occasion, detecting missing clothes in the organizer, laundry reminders, voice commands and even gesture controls that let you shuffle through clothes with a wave of your hand.</p><p>It's still in the planning stage, so there's a lot of hardware and software to figure out, but I think it'll be a really fun project to build.</p>"
+      },
+      {
+        "type": "text",
+        "content": "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">5. Typing Speed Tester</h3><p>I'm still working on the Python typing speed tester that I mentioned in my last blog.</p><p>I haven't had enough time to properly work on it this week because of university assignments, but I'm slowly adding more features whenever I get some free time. Hopefully I'll have it finished soon.</p>"
+      },
+      {
+        "type": "text",
+        "content": "<h3 style=\"color:var(--pink-neon);margin-top:10px;\">6. Tool of the Week</h3><p>This week's interesting discovery was <strong style=\"color:var(--purple-bright);\">OmniRoute</strong>.</p><p>OmniRoute is an open-source AI gateway that connects different AI coding tools and model providers through a single endpoint. Instead of configuring every AI tool separately, OmniRoute handles everything in the background and routes requests to whichever provider you're using.</p><p>One feature I thought was really cool is that it supports tools like Cursor, Claude Code, Copilot, Codex and Cline, while also automatically switching providers if one becomes unavailable or reaches its limits. It also includes features like smart routing and token compression, which makes it a pretty useful project if you regularly work with AI coding assistants.</p><p>I'll probably spend some more time experimenting with it over the next week.</p>"
+      },
+      {
+        "type": "image",
+        "src": "assets/post2_omniroute.png",
+        "alt": "OmniRoute The Free AI Gateway UI"
+      },
+      {
+        "type": "text",
+        "content": "<p style=\"margin-top:14px;font-weight:bold;color:var(--purple-bright);\">That's pretty much how this week went. It wasn't as project-heavy as last week, but I got a much better understanding of machine learning, learnt a new tool, discovered another useful open-source project, and started planning what will probably become my biggest IoT project so far.</p>"
+      }
+    ]
+  },
+  {
     "id": "entry-weekly-1",
     "year": 2026,
     "date": "27.07.2026",
